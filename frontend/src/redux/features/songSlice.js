@@ -59,10 +59,12 @@ const initialState = {
     }
   ],
   currentSong: {
-    id: 9,
-    title: "Midnight Serenade",
-    artist: "Luna",
-    image: "https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?q=80&w=2948&auto=format&fit=crop"
+    id: 0,
+    title: "Gehra Hua",
+    artist: "Unknown",
+    image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2940&auto=format&fit=crop",
+    poster: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2940&auto=format&fit=crop",
+    audio: ""
   },
   isPlaying: false,
   filteredSongs: [] // For search functionality
@@ -78,6 +80,18 @@ export const songSlice = createSlice({
     },
     togglePlayPause: (state) => {
       state.isPlaying = !state.isPlaying;
+    },
+    nextSong: (state) => {
+      const currentIndex = state.songs.findIndex(song => song._id === state.currentSong._id);
+      const nextIndex = (currentIndex + 1) % state.songs.length;
+      state.currentSong = state.songs[nextIndex];
+      state.isPlaying = true;
+    },
+    prevSong: (state) => {
+      const currentIndex = state.songs.findIndex(song => song._id === state.currentSong._id);
+      const prevIndex = currentIndex === 0 ? state.songs.length - 1 : currentIndex - 1;
+      state.currentSong = state.songs[prevIndex];
+      state.isPlaying = true;
     },
     searchSongs: (state, action) => {
       const query = action.payload.toLowerCase();
@@ -96,6 +110,11 @@ export const songSlice = createSlice({
     },
     setSongs : (state, action) => {
       state.songs = action.payload;
+      // Set default song if not set
+      if (!state.currentSong && state.songs.length > 0) {
+        const defaultSong = state.songs.find(song => song.title === "Gehra Hua") || state.songs[0];
+        state.currentSong = defaultSong;
+      }
     },
     setFilteredSongs: (state, action) => {
       state.filteredSongs = action.payload;
@@ -103,7 +122,7 @@ export const songSlice = createSlice({
   },
 });
 
-export const { setCurrentSong, togglePlayPause, searchSongs, addSong, setSongs,setFilteredSongs } = songSlice.actions;
+export const { setCurrentSong, togglePlayPause, nextSong, prevSong, searchSongs, addSong, setSongs,setFilteredSongs } = songSlice.actions;
 
 export const selectSongs = (state) => state.songs.songs;
 export const selectCurrentSong = (state) => state.songs.currentSong;

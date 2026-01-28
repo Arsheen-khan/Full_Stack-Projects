@@ -5,6 +5,7 @@ import Login from '../pages/Login'
 import Upload from '../pages/Upload'
 import Register from '../pages/Register'
 import Search from '../pages/Search'
+import Profile from '../pages/Profile'
 import Protected from '../components/Protected'
 
 
@@ -17,6 +18,7 @@ const AppRoutes = () => {
                 <Route path='/register' element={<Register />} />
                 <Route path='/search' element={<Protected><Search /></Protected>} />
                 <Route path="/upload" element={<Protected><Upload /></Protected>} />
+                <Route path="/profile" element={<Protected><Profile /></Protected>} />
             </Routes>
         </Router>
     )

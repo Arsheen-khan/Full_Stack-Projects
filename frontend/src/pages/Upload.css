@@ -1,99 +1,216 @@
-/* Upload.css - Styling for the upload interface */
+/* Upload.css - Spotify-like upload page */
+.app-layout {
+    display: flex;
+    height: 100vh;
+    background-color: #121212;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 240px;
+    margin-top: 64px;
+    margin-bottom: 90px;
+    overflow-y: auto;
+    padding: 0;
+}
+
 .upload-section {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f5f5f5;
-  min-height: 100vh;
-  padding-bottom: 120px; /* Make space for navigation */
+    padding: 32px;
+    background-color: #121212;
+    min-height: calc(100vh - 64px - 90px);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
-.upload-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 40px;
-  gap: 15px;
-}
-
-.back-button {
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 50%;
-  transition: background-color 0.2s;
-}
-
-.back-button:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+.upload-container {
+    max-width: 480px;
+    width: 100%;
 }
 
 .upload-header h1 {
-  font-size: 24px;
-  font-weight: 600;
-}
-
-.upload-content {
-  margin-top: 30px;
-  text-align: center;
-  color: #666;
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 32px;
+    text-align: center;
 }
 
 .upload-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 4px;
 }
 
 .upload-form input[type="text"] {
-  width: 100%;
-  padding: 12px 16px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 16px;
-  outline: none;
-  transition: border-color 0.2s;
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    outline: none;
+    transition: all 0.2s ease;
 }
 
 .upload-form input[type="text"]:focus {
-  border-color: #666;
+    border-color: #1db954;
+    box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.2);
 }
 
-.upload-buttons {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
+.upload-form input[type="text"]:disabled {
+    background-color: #1a1a1a;
+    color: #666666;
+    cursor: not-allowed;
 }
 
 .upload-button {
-  flex: 1;
-  padding: 12px 20px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  text-align: center;
-  transition: all 0.2s;
+    padding: 12px 16px;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.upload-button:hover {
-  background-color: #f8f8f8;
-  border-color: #999;
+.upload-button:hover:not(:disabled) {
+    background-color: #3a3a3a;
+    border-color: #1db954;
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(29, 185, 84, 0.3);
+}
+
+.upload-button:disabled {
+    background-color: #1a1a1a;
+    color: #666666;
+    cursor: not-allowed;
+    border-color: #333333;
 }
 
 .submit-button {
-  margin-top: 20px;
-  padding: 14px;
-  background-color: #000;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s;
+    margin-top: 32px;
+    padding: 14px;
+    background-color: #1db954;
+    color: #ffffff;
+    border: none;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
 }
 
-.submit-button:hover {
-  background-color: #333;
+.submit-button:hover:not(:disabled) {
+    background-color: #1aa34a;
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(29, 185, 84, 0.4);
+}
+
+.submit-button:disabled {
+    cursor: not-allowed;
+    transform: none;
+}
+
+.submit-button.loading {
+    background-color: #333333;
+    animation: pulse 1.5s infinite;
+}
+
+.submit-button.success {
+    background-color: #1db954;
+    animation: successPulse 0.6s ease-out;
+}
+
+.loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #666666;
+    border-top: 2px solid #ffffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+    animation: checkmark 0.6s ease-out;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+@keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes checkmark {
+    0% {
+        opacity: 0;
+        transform: scale(0.3) rotate(45deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1) rotate(45deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 72px;
+    }
+
+    .upload-section {
+        padding: 16px;
+    }
+
+    .upload-container {
+        max-width: none;
+    }
+
+    .upload-header h1 {
+        font-size: 28px;
+    }
+}
+    }
 }
